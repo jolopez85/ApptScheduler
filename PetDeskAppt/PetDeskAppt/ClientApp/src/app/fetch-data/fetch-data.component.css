@@ -1,0 +1,14 @@
+.block {
+    display: block;
+    position: absolute;
+    /*top: 10;*/
+    
+}
+
+.hide {
+    display: none;
+}
+
+.info{
+    margin-left: 2rem;
+}

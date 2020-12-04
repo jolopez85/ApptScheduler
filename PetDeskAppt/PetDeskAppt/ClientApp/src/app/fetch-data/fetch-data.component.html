@@ -1,0 +1,82 @@
+<h1 id="tableLabel">Scheduled Appointments</h1>
+<br/>
+<p *ngIf="!appointments">
+
+  <em>Loading Appointments...</em>
+</p>
+
+
+<div class="w3-panel w3-green w3-display-container" *ngIf="showMessage">
+  <span (click)="hideMessage()"
+  class="w3-button w3-large w3-display-topright">&times;</span>
+  <h3>{{message.header}}</h3>
+  <hr/>
+  <p>{{message.description}}</p>
+</div>
+<div class="w3-container">
+  <div id="modal" class="w3-modal" >
+    <div class="w3-modal-content w3-animate-opacity w3-card-4">
+      <header class="w3-container w3-indigo"> 
+        <span (click)="hideModal()" 
+        class="w3-button w3-display-topright">&times;</span>
+        <h2>Appointment Details </h2>
+      </header>
+      <div class="w3-container">
+       <div>
+          <div><strong>Owner</strong></div>
+          <div class="row info">
+              <div>{{selectedAppointment?.user?.firstName}} {{selectedAppointment?.user?.lastName}}</div>
+          </div>
+          <br/>
+          <div><strong>Pet</strong></div>
+          <div class="column info">
+              <div class="row">Name: {{selectedAppointment?.animal?.firstName}}</div>
+              <div class="row">Species: {{selectedAppointment?.animal?.species || "Not specified"}}</div>
+              <div class="row">Bred: {{selectedAppointment?.animal?.breed || "Not specified"}}</div>
+          </div>
+          <hr/>
+          <div><strong>Service</strong></div>
+          <div class="row info">
+              <div><P>{{selectedAppointment?.type}}, schedule by <strong>{{selectedAppointment?.requestedDateTimeOffset}}</strong></P></div>
+          </div>
+
+       </div>
+        <div class="text-center">
+          <button class="btn btn-primary" style="margin: 1rem;" (click)="Confirm()">Confirm</button>
+          <button class="btn btn-success" (click)="Reschedule(selectedAppointment.id)">Reschedule</button>
+        </div>
+      </div>
+      <footer class="w3-container w3-indigo">
+        &nbsp;
+      </footer>
+    </div>
+  </div>
+</div>
+
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="appointments">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Type</th>
+      <th>Pet Name</th>
+      <th>Owner</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let appt of appointments">
+      <td>{{ appt.requestedDateTimeOffset }}</td>
+      <td>{{ appt.type }}</td>
+      <td>{{ appt.animal.firstName }}</td>
+      <td>{{ appt.user.firstName }} {{appt.user.lastName}}</td>
+      <td>
+        <button class="btn btn-primary" (click)="ViewDetail(appt.id)">View</button>
+      </td> 
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
